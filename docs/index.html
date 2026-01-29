@@ -1,126 +1,242 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEER: 基于大模型语义先验的可控神经渲染</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SEER: 基于大模型语义先验的可控神经渲染</title>
 
-    <!-- 必须引用：RenderFormer 使用的核心字体和图标 -->
-    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="style.css">
+  <meta name="description" content="SEER：利用大模型语义先验（如 CLIP）实现可控神经渲染与多视角一致性。" />
+  <meta property="og:title" content="SEER: 基于大模型语义先验的可控神经渲染" />
+  <meta property="og:description" content="SEER：利用大模型语义先验（如 CLIP）实现可控神经渲染与多视角一致性。" />
+  <meta property="og:type" content="website" />
+
+  <!-- Icons (Font Awesome) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <link rel="stylesheet" href="assets/style.css" />
+  <script defer src="assets/main.js"></script>
 </head>
+
 <body>
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="#top">
+        <span class="brand-dot"></span>
+        <span class="brand-title">SEER</span>
+      </a>
 
-<section class="hero">
-    <div class="hero-body">
-        <div class="container">
-            <h1 class="title is-1 publication-title">SEER: 基于大模型语义先验的可控神经渲染</h1>
-            <div class="is-size-5 publication-authors">
-                <span class="author-block"><a href="#">邱艳雯</a><sup>1</sup>,</span>
-                <span class="author-block"><a href="#">合作者二</a><sup>1</sup>,</span>
-                <span class="author-block"><a href="#">合作者三</a><sup>2</sup></span>
-            </div>
+      <nav class="nav">
+        <a href="#abstract" class="nav-link">Abstract</a>
+        <a href="#method" class="nav-link">Method</a>
+        <a href="#results" class="nav-link">Results</a>
+        <a href="#usage" class="nav-link">Usage</a>
+        <a href="#citation" class="nav-link">BibTeX</a>
+        <span class="nav-underline-bar"></span>
+      </nav>
 
-            <div class="is-size-5 publication-affiliations">
-                <span class="author-block"><sup>1</sup>某某大学,</span>
-                <span class="author-block"><sup>2</sup>某某研究所</span>
-            </div>
-
-            <div class="column has-text-centered">
-                <div class="publication-links">
-                    <!-- PDF 按钮 -->
-                    <span class="link-block">
-                        <a href="#" class="external-link button is-normal is-rounded is-dark">
-                            <span class="icon"><i class="fas fa-file-pdf"></i></span>
-                            <span>Paper</span>
-                        </a>
-                    </span>
-                    <!-- Code 按钮 -->
-                    <span class="link-block">
-                        <a href="#" class="external-link button is-normal is-rounded is-dark">
-                            <span class="icon"><i class="fab fa-github"></i></span>
-                            <span>Code</span>
-                        </a>
-                    </span>
-                    <!-- Video 按钮 -->
-                    <span class="link-block">
-                        <a href="#" class="external-link button is-normal is-rounded is-dark">
-                            <span class="icon"><i class="fab fa-youtube"></i></span>
-                            <span>Video</span>
-                        </a>
-                    </span>
-                </div>
-            </div>
-        </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
     </div>
-</section>
 
-<section class="section">
-    <div class="container is-max-desktop">
-        <!-- Teaser Figure -->
-        <div class="columns is-centered has-text-centered">
-            <div class="column is-four-fifths">
-                <img src="assets/teaser.png" class="interpolation-image" alt="SEER Teaser"/>
-                <p class="content has-text-justified">
-                    <em>图 1. SEER 框架效果。</em> 我们展示了如何利用大模型语义先验实现对三维场景的高效、可控渲染。
-                </p>
-            </div>
-        </div>
-
-        <!-- Abstract -->
-        <div class="columns is-centered has-text-centered">
-            <div class="column is-four-fifths">
-                <h2 class="title is-3">Abstract</h2>
-                <div class="content has-text-justified">
-                    <p>
-                        神经渲染在 3D 重建中取得了显著成就，但其缺乏对场景语义的深入理解。SEER 提出了一种基于大模型语义先验的新架构，
-                        通过 Transformer 结构有效融合空间几何与语义信息。我们的方法在多项基准测试中达到了最先进的性能，并支持高度自由的场景编辑。
-                    </p>
-                </div>
-            </div>
-        </div>
+    <!-- underline indicator (由 JS 驱动移动) -->
+    <div class="nav-underline">
+      <div class="nav-underline-bar"></div>
     </div>
-</section>
+  </header>
 
-<!-- Methodology Section -->
-<section class="section">
-    <div class="container is-max-desktop">
-        <h2 class="title is-3">Methodology</h2>
-        <div class="content has-text-justified">
-            <img src="assets/method.png" style="width: 100%; border-radius: 10px; margin-bottom: 20px;">
-            <p>
-                我们提出了一种全新的语义注入模块（Semantic Injection Module），它可以将预训练大模型的 Token 映射到神经辐射场的隐空间中...
-            </p>
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-left">
+          <h1 class="hero-title">SEER: 基于大模型语义先验的可控神经渲染</h1>
+          <p class="hero-authors">
+            邱艳雯 · 合作者A · 合作者B
+            <span class="hero-aff">（课程大作业 / 2026）</span>
+          </p>
+
+          <!-- black buttons like RenderFormer -->
+          <div class="hero-buttons">
+            <a class="pill" href="https://arxiv.org" target="_blank" rel="noreferrer">
+              <i class="fa-solid fa-file-lines"></i><span>arXiv</span>
+            </a>
+            <a class="pill" href="../paper.pdf" target="_blank" rel="noreferrer">
+              <i class="fa-solid fa-file-pdf"></i><span>Paper</span>
+            </a>
+            <a class="pill" href="https://github.com/<YOUR_GITHUB>/<YOUR_REPO>" target="_blank" rel="noreferrer">
+              <i class="fa-brands fa-github"></i><span>Code</span>
+            </a>
+            <a class="pill" href="#results">
+              <i class="fa-solid fa-play"></i><span>Demo</span>
+            </a>
+            <a class="pill" href="../slides.pdf" target="_blank" rel="noreferrer">
+              <i class="fa-solid fa-display"></i><span>Slides</span>
+            </a>
+          </div>
+
+          <p class="hero-note">
+            <span class="tag">SIGGRAPH-style Project Page</span>
+            <span class="tag blue">Black / White / Blue</span>
+          </p>
         </div>
-    </div>
-</section>
 
-<!-- BibTeX Section -->
-<section class="section" id="BibTeX">
-    <div class="container is-max-desktop content">
-        <h2 class="title">BibTeX</h2>
-        <div class="bibtex-container">
-            <button class="copy-button" onclick="copyBib()">Copy</button>
-            <pre><code>@article{qiu2026seer,
-  author    = {Qiu, Yanwen and others},
-  title     = {SEER: Controllable Neural Rendering based on Large Model Semantic Priors},
-  journal   = {arXiv},
-  year      = {2026},
+        <!-- right gallery block (像 RenderFormer 右侧拼图那种位置，你后面换图即可) -->
+        <div class="hero-right">
+          <div class="mosaic">
+            <img src="assets/result1.png" alt="result mosaic 1">
+            <img src="assets/result2.png" alt="result mosaic 2">
+            <img src="assets/teaser.png" alt="result mosaic 3">
+            <img src="assets/pipeline.png" alt="result mosaic 4">
+          </div>
+          <div class="mosaic-cap">
+            右侧为示例拼图布局：你后续用真实结果图替换 <code>assets/</code> 内图片即可。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Abstract -->
+    <section id="abstract" class="section">
+      <div class="container">
+        <h2 class="section-title">Abstract</h2>
+        <p class="para">
+          本研究引入视觉语言模型（如 CLIP）作为语义先验，在 NeRF 优化中加入全局语义对齐与多视角一致性约束，
+          实现文本可控的神经渲染；并可扩展到掩码 + 局部提示的局部编辑控制。
+        </p>
+      </div>
+    </section>
+
+    <!-- Method -->
+    <section id="method" class="section alt">
+      <div class="container">
+        <h2 class="section-title">Method</h2>
+        <p class="para">
+          训练目标由像素重建与语义约束共同组成：
+          <span class="math">
+            L = L<sub>rgb</sub> + λ<sub>g</sub>L<sub>sem</sub><sup>global</sup> + λ<sub>mv</sub>L<sub>mv</sub> (+ λ<sub>l</sub>L<sub>sem</sub><sup>local</sup>)
+          </span>
+        </p>
+
+        <figure class="figure">
+          <img src="assets/pipeline.png" alt="pipeline">
+          <figcaption>
+            Pipeline：输入多视角数据 → NeRF 渲染 → CLIP 语义约束 + 多视角一致性约束。
+          </figcaption>
+        </figure>
+
+        <div class="cards">
+          <div class="card">
+            <h3>Global Semantic</h3>
+            <p>渲染图与文本 prompt 做 cosine 对齐，增强整体语义一致性。</p>
+          </div>
+          <div class="card">
+            <h3>Multi-view Consistency</h3>
+            <p>同 batch 不同视角 embedding 一致，减少闪烁与漂移。</p>
+          </div>
+          <div class="card">
+            <h3>Local Editing</h3>
+            <p>掩码区域与局部 prompt 对齐，实现局部可控编辑。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section id="results" class="section">
+      <div class="container">
+        <h2 class="section-title">Results</h2>
+
+        <!-- Tabs -->
+        <div class="tabs" role="tablist" aria-label="Results Tabs">
+          <button class="tab active" data-tab="qual" role="tab" aria-selected="true" type="button">Qualitative</button>
+          <button class="tab" data-tab="quant" role="tab" aria-selected="false" type="button">Quantitative</button>
+        </div>
+
+        <!-- Panels -->
+        <div class="tab-panel active" id="tab-qual" role="tabpanel">
+          <p class="para muted">下面是结果展示区（先用占位图）。你只要替换图片文件即可。</p>
+          <div class="gallery">
+            <figure class="shot">
+              <img src="assets/result1.png" alt="result 1">
+              <figcaption>Baseline vs Ours（多视角一致性更稳定）</figcaption>
+            </figure>
+            <figure class="shot">
+              <img src="assets/result2.png" alt="result 2">
+              <figcaption>局部编辑示例（mask + prompt）</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tab-quant" role="tabpanel">
+          <p class="para muted">把你的指标填到表格里即可（PSNR/SSIM/CLIPScore 等）。</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>PSNR ↑</th>
+                  <th>SSIM ↑</th>
+                  <th>CLIPScore ↑</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>NeRF (RGB)</td>
+                  <td>--</td><td>--</td><td>--</td>
+                </tr>
+                <tr>
+                  <td>+ Global Semantic</td>
+                  <td>--</td><td>--</td><td>--</td>
+                </tr>
+                <tr>
+                  <td>+ Multi-view (Ours)</td>
+                  <td>--</td><td>--</td><td>--</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Usage -->
+    <section id="usage" class="section alt">
+      <div class="container">
+        <h2 class="section-title">Usage</h2>
+        <pre class="codeblock"><code># Install
+conda env create -f environment.yml
+conda activate seer
+
+# Train
+bash scripts/train.sh configs/clip_sem_global_mv.yaml
+
+# Evaluate
+bash scripts/eval.sh configs/clip_sem_global_mv.yaml</code></pre>
+      </div>
+    </section>
+
+    <!-- Citation -->
+    <section id="citation" class="section">
+      <div class="container">
+        <h2 class="section-title">BibTeX</h2>
+        <pre class="codeblock"><code>@misc{seer_2026,
+  title   = {SEER: 基于大模型语义先验的可控神经渲染},
+  author  = {Yanwen Qiu and others},
+  year    = {2026},
+  note    = {Course Project}
 }</code></pre>
-        </div>
-    </div>
-</section>
+      </div>
+    </section>
 
-<footer class="footer">
-    <div class="container">
-        <div class="content has-text-centered">
-            <p>网页模版参考自 <a href="https://renderformer.github.io/">RenderFormer</a> 与 <a href="https://nerfies.github.io/">Nerfies</a>。</p>
-        </div>
-    </div>
-</footer>
-
-<script src="script.js"></script>
+    <footer class="footer">
+      <div class="container footer-inner">
+        <span>© 2026 SEER</span>
+        <a href="#top" class="backtop">Back to top ↑</a>
+      </div>
+    </footer>
+  </main>
 </body>
 </html>
