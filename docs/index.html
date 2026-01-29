@@ -1,226 +1,110 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SemPrior-Rend</title>
-
-  <meta name="description" content="NeRF + VLM semantic priors for controllable neural rendering." />
-  <meta property="og:title" content="SemPrior-Rend" />
-  <meta property="og:description" content="NeRF + VLM semantic priors for controllable neural rendering." />
-  <meta property="og:type" content="website" />
-
-  <link rel="stylesheet" href="assets/style.css" />
-  <script defer src="assets/main.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEER: 基于大模型语义先验的可控神经渲染</title>
+    
+    <!-- 引入外部字体与图标 -->
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- 引用 CSS 文件 -->
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <!-- Top bar -->
-  <header class="topbar">
-    <div class="container topbar-inner">
-      <div class="brand">
-        <span class="dot"></span>
-        <span class="brand-title">SemPrior-Rend</span>
-      </div>
 
-      <nav class="nav">
-        <a href="#abstract">Abstract</a>
-        <a href="#method">Method</a>
-        <a href="#results">Results</a>
-        <a href="#usage">Usage</a>
-        <a href="#citation">BibTeX</a>
-      </nav>
+    <div class="container">
+        <!-- 标题与作者信息 -->
+        <header class="page-header">
+            <h1 class="project-title">SEER: 基于大模型语义先验的可控神经渲染</h1>
+            <div class="authors">
+                <a href="#">邱艳雯</a><sup>1</sup>, 
+                <a href="#">合作者二</a><sup>1</sup>, 
+                <a href="#">合作者三</a><sup>2</sup>
+            </div>
+            <div class="affiliations">
+                <sup>1</sup> 某某大学 &nbsp;&nbsp;&nbsp; <sup>2</sup> 某某研究所
+            </div>
 
-      <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+            <!-- 资源按钮 -->
+            <div class="link-container">
+                <a href="#" class="btn btn-dark"><i class="far fa-file-pdf"></i> Paper</a>
+                <a href="https://github.com" class="btn btn-dark"><i class="fab fa-github"></i> Code</a>
+                <a href="#" class="btn btn-dark"><i class="fab fa-youtube"></i> Video</a>
+                <a href="#" class="btn btn-dark"><i class="far fa-images"></i> Project Page</a>
+            </div>
+        </header>
+
+        <!-- 主视觉展示 (Teaser) -->
+        <section class="teaser-section">
+            <div class="media-container">
+                <!-- 建议使用视频或高质量图片 -->
+                <img src="assets/teaser.png" alt="SEER Teaser" class="responsive-img">
+            </div>
+            <p class="caption">SEER 利用大模型 (LLM/VLM) 的语义先验，实现了对 3D 场景的高精度语义控制渲染。</p>
+        </section>
+
+        <!-- 摘要 -->
+        <section class="content-section">
+            <h2>摘要 (Abstract)</h2>
+            <hr>
+            <p class="abstract-text">
+                神经渲染在 3D 重建中取得了显著成就，但其缺乏对场景语义的深入理解，限制了编辑的可控性。在本文中，我们提出了 SEER (Semantic Embedded Expressive Rendering)，一个利用预训练大模型语义先验的新型框架。我们证明了通过将大模型的密集语义特征嵌入神经辐射场，可以在保持几何一致性的同时，实现高度灵活的属性编辑和视角合成。
+            </p>
+        </section>
+
+        <!-- 方法展示 -->
+        <section class="content-section">
+            <h2>核心方法 (Methodology)</h2>
+            <hr>
+            <div class="media-container">
+                <img src="assets/method.png" alt="Method Pipeline" class="responsive-img">
+            </div>
+            <p><strong>图 2: SEER 管线概述。</strong> 我们的方法主要包含语义提取层、Transformer 融合模块以及可控体积渲染器。</p>
+        </section>
+
+        <!-- 结果展示 (Grid) -->
+        <section class="content-section">
+            <h2>可视化结果 (Results)</h2>
+            <hr>
+            <div class="results-grid">
+                <div class="grid-item">
+                    <img src="assets/result1.gif" alt="Result 1">
+                    <span>文本驱动编辑</span>
+                </div>
+                <div class="grid-item">
+                    <img src="assets/result2.gif" alt="Result 2">
+                    <span>风格化渲染</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- BibTeX 引用 -->
+        <section class="content-section">
+            <h2>引用 (Citation)</h2>
+            <hr>
+            <div class="bibtex-card">
+                <div class="bibtex-header">
+                    <span>BibTeX</span>
+                    <button id="copy-btn">复制</button>
+                </div>
+                <pre id="bibtex-code">
+@article{qiu2026seer,
+  title={SEER: Controllable Neural Rendering based on Large Model Semantic Priors},
+  author={Qiu, Yanwen and others},
+  journal={arXiv preprint arXiv:XXXX.XXXXX},
+  year={2026}
+}</pre>
+            </div>
+        </section>
+
+        <footer class="page-footer">
+            <p>本网页由 Gemini Enterprise 提供模版建议。© 2026 SEER Project.</p>
+        </footer>
     </div>
-  </header>
 
-  <main>
-    <!-- Hero -->
-    <section class="hero">
-      <div class="container">
-        <h1 class="title">SemPrior-Rend: Semantic Prior Driven Controllable Neural Rendering</h1>
-
-        <p class="authors">
-          邱艳雯 · 合作者A · 合作者B
-          <span class="aff">（课程大作业 / 2026）</span>
-        </p>
-
-        <div class="buttons">
-          <a class="btn primary" href="https://github.com/<YOUR_GITHUB>/<YOUR_REPO>" target="_blank" rel="noreferrer">Code</a>
-          <a class="btn" href="../report.pdf" target="_blank" rel="noreferrer">Report</a>
-          <a class="btn" href="#results">Demo</a>
-        </div>
-
-        <figure class="media">
-          <img src="assets/teaser.png" alt="Teaser figure" />
-          <figcaption>
-            Teaser：NeRF + CLIP 语义先验，实现更可控的渲染与更稳定的多视角一致性（后续替换成你的真实结果图）。
-          </figcaption>
-        </figure>
-
-        <div class="highlights">
-          <div class="card">
-            <h3>Semantic Prior</h3>
-            <p>用 VLM/CLIP 语义对齐，引导渲染结果符合文本描述。</p>
-          </div>
-          <div class="card">
-            <h3>Multi-view Consistency</h3>
-            <p>跨视角语义一致性损失，减少视角切换闪烁与漂移。</p>
-          </div>
-          <div class="card">
-            <h3>Local Editing (Optional)</h3>
-            <p>掩码 + 局部 prompt，实现局部语义编辑与控制。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Abstract -->
-    <section id="abstract" class="section">
-      <div class="container">
-        <h2>Abstract</h2>
-        <p>
-          我们在 NeRF 优化中引入视觉语言模型（如 CLIP）语义先验，通过全局语义对齐与跨视角一致性约束，
-          实现文本可控的神经渲染，并可扩展到局部掩码编辑。该项目以课程作业为目标，强调可复现与工程完整性。
-        </p>
-      </div>
-    </section>
-
-    <!-- Method -->
-    <section id="method" class="section alt">
-      <div class="container">
-        <h2>Method</h2>
-        <p class="lead">
-          训练目标由像素重建与语义约束共同组成：<br />
-          <span class="math">L = L<sub>rgb</sub> + λ<sub>g</sub>L<sub>sem</sub><sup>global</sup> + λ<sub>mv</sub>L<sub>mv</sub> (+ λ<sub>l</sub>L<sub>sem</sub><sup>local</sup>)</span>
-        </p>
-
-        <figure class="media">
-          <img src="assets/pipeline.png" alt="Pipeline" />
-          <figcaption>
-            Pipeline：输入多视角数据，渲染得到 ŷI；通过 CLIP 图像/文本编码器计算语义损失，并加入多视角一致性约束。
-          </figcaption>
-        </figure>
-
-        <div class="grid2">
-          <div class="card">
-            <h3>Global Semantic</h3>
-            <p>对整张渲染图与文本 prompt 做 cosine 对齐，促进整体语义一致。</p>
-          </div>
-          <div class="card">
-            <h3>Multi-view</h3>
-            <p>同一 batch 内不同视角的语义 embedding 约束一致，降低闪烁与漂移。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Results -->
-    <section id="results" class="section">
-      <div class="container">
-        <h2>Results</h2>
-
-        <div class="tabs">
-          <button class="tab active" data-tab="qual">Qualitative</button>
-          <button class="tab" data-tab="quant">Quantitative</button>
-        </div>
-
-        <div class="tab-panel active" id="tab-qual">
-          <p class="lead">下面先用占位图演示排版结构，后面你只要替换图片即可。</p>
-
-          <div class="gallery">
-            <figure class="shot">
-              <img src="assets/result1.png" alt="result 1" />
-              <figcaption>Baseline vs Ours（多视角一致性更稳定）</figcaption>
-            </figure>
-            <figure class="shot">
-              <img src="assets/result2.png" alt="result 2" />
-              <figcaption>局部编辑示例（mask + prompt）</figcaption>
-            </figure>
-          </div>
-
-          <div class="note">
-            <strong>Tip：</strong>如果你要放视频，建议用 B 站/YouTube 外链嵌入，或放一个 GIF。
-          </div>
-        </div>
-
-        <div class="tab-panel" id="tab-quant">
-          <p class="lead">你后面跑出指标后，把表格填进来即可（PSNR/SSIM/CLIPScore 等）。</p>
-
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Method</th>
-                  <th>PSNR ↑</th>
-                  <th>SSIM ↑</th>
-                  <th>CLIPScore ↑</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>NeRF (RGB)</td>
-                  <td>--</td>
-                  <td>--</td>
-                  <td>--</td>
-                </tr>
-                <tr>
-                  <td>+ Global Semantic</td>
-                  <td>--</td>
-                  <td>--</td>
-                  <td>--</td>
-                </tr>
-                <tr>
-                  <td>+ Multi-view (Ours)</td>
-                  <td>--</td>
-                  <td>--</td>
-                  <td>--</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Usage -->
-    <section id="usage" class="section alt">
-      <div class="container">
-        <h2>Usage</h2>
-        <p class="lead">等你后面代码就绪，这里放最短的复现实验命令。</p>
-
-        <pre class="codeblock"><code># Install
-conda env create -f environment.yml
-conda activate semprior-rend
-
-# Train (example)
-bash scripts/train.sh configs/clip_sem_global_mv.yaml
-
-# Evaluate
-bash scripts/eval.sh configs/clip_sem_global_mv.yaml</code></pre>
-      </div>
-    </section>
-
-    <!-- Citation -->
-    <section id="citation" class="section">
-      <div class="container">
-        <h2>BibTeX</h2>
-        <pre class="codeblock"><code>@misc{semprior_rend_2026,
-  title   = {SemPrior-Rend: Semantic Prior Driven Controllable Neural Rendering},
-  author  = {Yanwen Qiu and others},
-  year    = {2026},
-  note    = {Course Project}
-}</code></pre>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div class="container footer-inner">
-        <p>© 2026 SemPrior-Rend. Built with GitHub Pages.</p>
-        <a href="#" class="backtop">Back to top ↑</a>
-      </div>
-    </footer>
-  </main>
+    <!-- 引用 JS 文件 -->
+    <script src="script.js"></script>
 </body>
 </html>
