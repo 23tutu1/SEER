@@ -4,107 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SEER: 基于大模型语义先验的可控神经渲染</title>
-    
-    <!-- 引入外部字体与图标 -->
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- 必须引用：RenderFormer 使用的核心字体和图标 -->
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- 引用 CSS 文件 -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
-        <!-- 标题与作者信息 -->
-        <header class="page-header">
-            <h1 class="project-title">SEER: 基于大模型语义先验的可控神经渲染</h1>
-            <div class="authors">
-                <a href="#">邱艳雯</a><sup>1</sup>, 
-                <a href="#">合作者二</a><sup>1</sup>, 
-                <a href="#">合作者三</a><sup>2</sup>
-            </div>
-            <div class="affiliations">
-                <sup>1</sup> 某某大学 &nbsp;&nbsp;&nbsp; <sup>2</sup> 某某研究所
+<section class="hero">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title is-1 publication-title">SEER: 基于大模型语义先验的可控神经渲染</h1>
+            <div class="is-size-5 publication-authors">
+                <span class="author-block"><a href="#">邱艳雯</a><sup>1</sup>,</span>
+                <span class="author-block"><a href="#">合作者二</a><sup>1</sup>,</span>
+                <span class="author-block"><a href="#">合作者三</a><sup>2</sup></span>
             </div>
 
-            <!-- 资源按钮 -->
-            <div class="link-container">
-                <a href="#" class="btn btn-dark"><i class="far fa-file-pdf"></i> Paper</a>
-                <a href="https://github.com" class="btn btn-dark"><i class="fab fa-github"></i> Code</a>
-                <a href="#" class="btn btn-dark"><i class="fab fa-youtube"></i> Video</a>
-                <a href="#" class="btn btn-dark"><i class="far fa-images"></i> Project Page</a>
+            <div class="is-size-5 publication-affiliations">
+                <span class="author-block"><sup>1</sup>某某大学,</span>
+                <span class="author-block"><sup>2</sup>某某研究所</span>
             </div>
-        </header>
 
-        <!-- 主视觉展示 (Teaser) -->
-        <section class="teaser-section">
-            <div class="media-container">
-                <!-- 建议使用视频或高质量图片 -->
-                <img src="assets/teaser.png" alt="SEER Teaser" class="responsive-img">
-            </div>
-            <p class="caption">SEER 利用大模型 (LLM/VLM) 的语义先验，实现了对 3D 场景的高精度语义控制渲染。</p>
-        </section>
-
-        <!-- 摘要 -->
-        <section class="content-section">
-            <h2>摘要 (Abstract)</h2>
-            <hr>
-            <p class="abstract-text">
-                神经渲染在 3D 重建中取得了显著成就，但其缺乏对场景语义的深入理解，限制了编辑的可控性。在本文中，我们提出了 SEER (Semantic Embedded Expressive Rendering)，一个利用预训练大模型语义先验的新型框架。我们证明了通过将大模型的密集语义特征嵌入神经辐射场，可以在保持几何一致性的同时，实现高度灵活的属性编辑和视角合成。
-            </p>
-        </section>
-
-        <!-- 方法展示 -->
-        <section class="content-section">
-            <h2>核心方法 (Methodology)</h2>
-            <hr>
-            <div class="media-container">
-                <img src="assets/method.png" alt="Method Pipeline" class="responsive-img">
-            </div>
-            <p><strong>图 2: SEER 管线概述。</strong> 我们的方法主要包含语义提取层、Transformer 融合模块以及可控体积渲染器。</p>
-        </section>
-
-        <!-- 结果展示 (Grid) -->
-        <section class="content-section">
-            <h2>可视化结果 (Results)</h2>
-            <hr>
-            <div class="results-grid">
-                <div class="grid-item">
-                    <img src="assets/result1.gif" alt="Result 1">
-                    <span>文本驱动编辑</span>
-                </div>
-                <div class="grid-item">
-                    <img src="assets/result2.gif" alt="Result 2">
-                    <span>风格化渲染</span>
+            <div class="column has-text-centered">
+                <div class="publication-links">
+                    <!-- PDF 按钮 -->
+                    <span class="link-block">
+                        <a href="#" class="external-link button is-normal is-rounded is-dark">
+                            <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                            <span>Paper</span>
+                        </a>
+                    </span>
+                    <!-- Code 按钮 -->
+                    <span class="link-block">
+                        <a href="#" class="external-link button is-normal is-rounded is-dark">
+                            <span class="icon"><i class="fab fa-github"></i></span>
+                            <span>Code</span>
+                        </a>
+                    </span>
+                    <!-- Video 按钮 -->
+                    <span class="link-block">
+                        <a href="#" class="external-link button is-normal is-rounded is-dark">
+                            <span class="icon"><i class="fab fa-youtube"></i></span>
+                            <span>Video</span>
+                        </a>
+                    </span>
                 </div>
             </div>
-        </section>
-
-        <!-- BibTeX 引用 -->
-        <section class="content-section">
-            <h2>引用 (Citation)</h2>
-            <hr>
-            <div class="bibtex-card">
-                <div class="bibtex-header">
-                    <span>BibTeX</span>
-                    <button id="copy-btn">复制</button>
-                </div>
-                <pre id="bibtex-code">
-@article{qiu2026seer,
-  title={SEER: Controllable Neural Rendering based on Large Model Semantic Priors},
-  author={Qiu, Yanwen and others},
-  journal={arXiv preprint arXiv:XXXX.XXXXX},
-  year={2026}
-}</pre>
-            </div>
-        </section>
-
-        <footer class="page-footer">
-            <p>本网页由 Gemini Enterprise 提供模版建议。© 2026 SEER Project.</p>
-        </footer>
+        </div>
     </div>
+</section>
 
-    <!-- 引用 JS 文件 -->
-    <script src="script.js"></script>
+<section class="section">
+    <div class="container is-max-desktop">
+        <!-- Teaser Figure -->
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <img src="assets/teaser.png" class="interpolation-image" alt="SEER Teaser"/>
+                <p class="content has-text-justified">
+                    <em>图 1. SEER 框架效果。</em> 我们展示了如何利用大模型语义先验实现对三维场景的高效、可控渲染。
+                </p>
+            </div>
+        </div>
+
+        <!-- Abstract -->
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <h2 class="title is-3">Abstract</h2>
+                <div class="content has-text-justified">
+                    <p>
+                        神经渲染在 3D 重建中取得了显著成就，但其缺乏对场景语义的深入理解。SEER 提出了一种基于大模型语义先验的新架构，
+                        通过 Transformer 结构有效融合空间几何与语义信息。我们的方法在多项基准测试中达到了最先进的性能，并支持高度自由的场景编辑。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Methodology Section -->
+<section class="section">
+    <div class="container is-max-desktop">
+        <h2 class="title is-3">Methodology</h2>
+        <div class="content has-text-justified">
+            <img src="assets/method.png" style="width: 100%; border-radius: 10px; margin-bottom: 20px;">
+            <p>
+                我们提出了一种全新的语义注入模块（Semantic Injection Module），它可以将预训练大模型的 Token 映射到神经辐射场的隐空间中...
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- BibTeX Section -->
+<section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+        <h2 class="title">BibTeX</h2>
+        <div class="bibtex-container">
+            <button class="copy-button" onclick="copyBib()">Copy</button>
+            <pre><code>@article{qiu2026seer,
+  author    = {Qiu, Yanwen and others},
+  title     = {SEER: Controllable Neural Rendering based on Large Model Semantic Priors},
+  journal   = {arXiv},
+  year      = {2026},
+}</code></pre>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>网页模版参考自 <a href="https://renderformer.github.io/">RenderFormer</a> 与 <a href="https://nerfies.github.io/">Nerfies</a>。</p>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>

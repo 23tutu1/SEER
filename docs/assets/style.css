@@ -1,175 +1,136 @@
-/* 基础变量 */
-:root {
-    --primary: #4a90e2;
-    --dark: #333;
-    --light-gray: #f4f4f7;
-    --border-color: #e1e4e8;
-    --font-main: 'Google Sans', sans-serif;
-}
-
+/* 基础字体设置 - RenderFormer 的核心感官 */
 body {
-    font-family: var(--font-main);
-    color: var(--dark);
-    line-height: 1.6;
-    margin: 0;
-    background: #fff;
+    font-family: 'Google Sans', sans-serif;
+    color: #4a4a4a;
+    background-color: #ffffff;
+    line-height: 1.5;
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 960px;
     margin: 0 auto;
-    padding: 60px 20px;
+    padding: 20px;
 }
 
-/* Header & Authors */
-.page-header {
+/* Header 样式 */
+.hero {
+    padding: 3rem 1.5rem;
     text-align: center;
-    margin-bottom: 50px;
 }
 
-.project-title {
-    font-size: 2.8rem;
+.publication-title {
+    font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
+    color: #363636;
 }
 
-.authors {
-    font-size: 1.25rem;
-    margin-bottom: 5px;
+.publication-authors {
+    margin-bottom: 0.5rem;
 }
 
-.authors a {
-    color: var(--primary);
+.author-block {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.author-block a {
+    color: #3273dc;
     text-decoration: none;
 }
 
-.affiliations {
-    color: #666;
-    font-style: italic;
-    margin-bottom: 30px;
+.author-block a:hover {
+    text-decoration: underline;
 }
 
-/* 按钮 */
-.link-container {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
+.publication-affiliations {
+    font-size: 1.1rem;
+    color: #7a7a7a;
+    margin-bottom: 1.5rem;
 }
 
-.btn {
-    padding: 10px 22px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 500;
+/* 按钮样式：RenderFormer 标志性的药丸形状 */
+.publication-links {
+    margin-top: 1.5rem;
+}
+
+.button.is-rounded {
+    border-radius: 290486px; /* 极大的圆角 */
+    padding-left: 1.25em;
+    padding-right: 1.25em;
+}
+
+.button.is-dark {
+    background-color: #363636;
+    color: #fff;
+    border: none;
+    font-size: 1rem;
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    transition: 0.3s;
+    height: 40px;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
 }
 
-.btn-dark {
-    background: #444;
-    color: white;
+.button.is-dark:hover {
+    background-color: #4a4a4a;
 }
 
-.btn-dark:hover {
-    background: var(--primary);
-    transform: translateY(-2px);
+/* 内容章节样式 */
+.section {
+    padding: 3rem 1.5rem;
 }
 
-/* Section 布局 */
-.content-section {
-    margin-bottom: 60px;
+.title.is-3 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
 }
 
-.content-section h2 {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-}
-
-hr {
-    border: 0;
-    border-top: 1px solid var(--border-color);
-    margin-bottom: 25px;
-}
-
-.abstract-text {
+.has-text-justified {
     text-align: justify;
     font-size: 1.1rem;
 }
 
-/* Media & Grid */
-.media-container {
-    background: var(--light-gray);
-    border-radius: 12px;
-    padding: 10px;
-    margin: 20px 0;
-}
-
-.responsive-img {
+/* 图像样式 */
+.interpolation-image {
     width: 100%;
-    border-radius: 8px;
-    display: block;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-.results-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.grid-item {
-    text-align: center;
-}
-
-.grid-item img {
-    width: 100%;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
-
-/* BibTeX 卡片 */
-.bibtex-card {
-    background: #f8f9fa;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.bibtex-header {
-    background: #eee;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#bibtex-code {
+/* BibTeX 容器：深灰色背景，代码感 */
+.bibtex-container {
+    background-color: #f5f5f5;
     padding: 20px;
+    border-radius: 8px;
+    position: relative;
     font-family: 'Courier New', monospace;
-    font-size: 0.9rem;
-    overflow-x: auto;
+    font-size: 0.95rem;
+}
+
+pre {
     margin: 0;
 }
 
-#copy-btn {
-    padding: 4px 12px;
-    cursor: pointer;
+.copy-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 12px;
     background: #fff;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 4px;
+    cursor: pointer;
 }
 
-.page-footer {
-    text-align: center;
-    margin-top: 100px;
-    padding: 40px 0;
-    color: #999;
-}
-
-/* 响应式适配 */
-@media (max-width: 768px) {
-    .project-title { font-size: 2rem; }
-    .results-grid { grid-template-columns: 1fr; }
+/* 页脚 */
+.footer {
+    background-color: #fafafa;
+    padding: 3rem 1.5rem;
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: #888;
 }
