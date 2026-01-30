@@ -187,14 +187,36 @@
             </figure>
             </div>
 
-            <div>
+            <div style="margin-bottom: 30px;">
             <figcaption>对象级可控渲染/编辑：目标区域改变明显，背景保持稳定（对比 baseline/LERF）。</figcaption>
             <figure class="figure">
               <img src="assets/fig4_3_editing.png" alt="Editing" />
             </figure>
             </div>
           </div>
+          
+          <div style="margin-bottom: 30px;">
+            <figcaption>多维能力综合评估（雷达图）：在 PSNR/SSIM、语义一致性（Drift↓）、目标响应（T-Align↑）、背景保持（BG-Δ↓）上更均衡。</figcaption>
+            <figure class="figure">
+              <img src="assets/fig10_radar.png" alt="Radar chart of multi-dimensional metrics" />
+            </figure>
+          </div>
+          
+          <div style="margin-bottom: 30px;">
+            <figcaption>渲染质量与语义一致性的联合分析（PSNR vs Drift）：同等质量下语义漂移更低，体现语义先验带来的稳定约束。</figcaption>
+            <figure class="figure">
+              <img src="assets/fig12_psnr_drift.png" alt="Joint distribution of PSNR and semantic drift" />
+            </figure>
+          </div>
+          
+          <div style="margin-bottom: 30px;">
+            <figcaption>语义一致性与编辑稳定性关系（Drift vs BG-Δ）：语义漂移越低，背景被误编辑的幅度越小，控制更可预测。</figcaption>
+            <figure class="figure">
+              <img src="assets/fig13_drift_bg_delta.png" alt="Correlation between drift and background change" />
+            </figure>
+          </div>
         </div>
+
     
         <!-- QUANT Section -->
         <div class="tab-panel" id="tab-quant" role="tabpanel">
