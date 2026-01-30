@@ -5,12 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SEER: 基于大模型语义先验的可控神经渲染</title>
 
-  <meta name="description" content="SEER：利用大模型语义先验（如 CLIP）实现可控神经渲染与多视角一致性。" />
-  <meta property="og:title" content="SEER: 基于大模型语义先验的可控神经渲染" />
-  <meta property="og:description" content="SEER：利用大模型语义先验（如 CLIP）实现可控神经渲染与多视角一致性。" />
-  <meta property="og:type" content="website" />
+  <meta name="description" content="SEER：语义可渲染语义场 + 条件调制 + 软掩码局部控制，实现对象级可控神经渲染与跨视角一致性。" />
 
-  <!-- Icons (Font Awesome) -->
+  <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <link rel="stylesheet" href="assets/style.css" />
@@ -18,7 +15,6 @@
 </head>
 
 <body>
-  <!-- Topbar -->
   <header class="topbar">
     <div class="container topbar-inner">
       <a class="brand" href="#top">
@@ -26,217 +22,320 @@
         <span class="brand-title">SEER</span>
       </a>
 
-      <nav class="nav">
-        <a href="#abstract" class="nav-link">Abstract</a>
-        <a href="#method" class="nav-link">Method</a>
-        <a href="#results" class="nav-link">Results</a>
-        <a href="#usage" class="nav-link">Usage</a>
-        <a href="#citation" class="nav-link">BibTeX</a>
-        <span class="nav-underline-bar"></span>
+      <nav class="nav" aria-label="Primary">
+        <a class="nav-link" href="#abstract">Abstract</a>
+        <a class="nav-link" href="#method">Method</a>
+        <a class="nav-link" href="#results">Results</a>
+
+        <span class="nav-underline-bar" aria-hidden="true"></span>
       </nav>
 
       <button class="nav-toggle" aria-label="Toggle navigation">
         <i class="fa-solid fa-bars"></i>
       </button>
     </div>
-
-    <!-- underline indicator (由 JS 驱动移动) -->
-    <div class="nav-underline">
-      <div class="nav-underline-bar"></div>
-    </div>
   </header>
 
   <main id="top">
-    <!-- Hero -->
+    <!-- HERO -->
     <section class="hero">
       <div class="container hero-inner">
         <div class="hero-left">
           <h1 class="hero-title">SEER: 基于大模型语义先验的可控神经渲染</h1>
           <p class="hero-authors">
-            邱艳雯 · 合作者A · 合作者B
+            戴锦程 · 邱艳雯 
             <span class="hero-aff">（课程大作业 / 2026）</span>
           </p>
 
-          <!-- black buttons like RenderFormer -->
           <div class="hero-buttons">
-            <a class="pill" href="https://arxiv.org" target="_blank" rel="noreferrer">
-              <i class="fa-solid fa-file-lines"></i><span>arXiv</span>
-            </a>
-            <a class="pill" href="../paper.pdf" target="_blank" rel="noreferrer">
-              <i class="fa-solid fa-file-pdf"></i><span>Paper</span>
-            </a>
-            <a class="pill" href="https://github.com/<YOUR_GITHUB>/<YOUR_REPO>" target="_blank" rel="noreferrer">
+            <a class="pill" href="https://github.com/23tutu1/SEER" target="_blank" rel="noreferrer">
               <i class="fa-brands fa-github"></i><span>Code</span>
+            </a>
+            <a class="pill" href="./大模型作业.docx" download>
+              <i class="fa-solid fa-file-pdf"></i><span>Report</span>
+            </a>
+            <a class="pill" href="./slides.pdf" target="_blank" rel="noreferrer">
+              <i class="fa-solid fa-display"></i><span>Slides</span>
             </a>
             <a class="pill" href="#results">
               <i class="fa-solid fa-play"></i><span>Demo</span>
             </a>
-            <a class="pill" href="../slides.pdf" target="_blank" rel="noreferrer">
-              <i class="fa-solid fa-display"></i><span>Slides</span>
-            </a>
           </div>
 
-          <p class="hero-note">
-            <span class="tag">SIGGRAPH-style Project Page</span>
-            <span class="tag blue">Black / White / Blue</span>
+          <div class="hero-tags">
+            <span class="tag blue">Controllable Neural Rendering</span>
+            <span class="tag">Multi-view Consistency</span>
+          </div>
+
+          <p class="hero-abstract">
+            我们提出 SEER：将视觉语言模型提供的语义先验蒸馏为“可渲染语义场”，
+            并在 NeRF 的外观分支引入语义条件调制，结合软掩码实现对象级编辑控制，
+            同时保持跨视角一致性与背景稳定。
           </p>
         </div>
 
-        <!-- right gallery block (像 RenderFormer 右侧拼图那种位置，你后面换图即可) -->
         <div class="hero-right">
-          <div class="mosaic">
-            <img src="assets/result1.png" alt="result mosaic 1">
-            <img src="assets/result2.png" alt="result mosaic 2">
-            <img src="assets/teaser.png" alt="result mosaic 3">
-            <img src="assets/pipeline.png" alt="result mosaic 4">
-          </div>
-          <div class="mosaic-cap">
-            右侧为示例拼图布局：你后续用真实结果图替换 <code>assets/</code> 内图片即可。
-          </div>
+          <figure class="figure">
+            <img src="assets/teaser.png" alt="Teaser" />
+            <figcaption>
+              Teaser：对象级可控渲染/编辑示例（替换为你最终结果图）。
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>
 
-    <!-- Abstract -->
+    <!-- ABSTRACT -->
     <section id="abstract" class="section">
       <div class="container">
-        <h2 class="section-title">Abstract</h2>
+        <h2 class="section-title">Introduction</h2>
         <p class="para">
-          本研究引入视觉语言模型（如 CLIP）作为语义先验，在 NeRF 优化中加入全局语义对齐与多视角一致性约束，
-          实现文本可控的神经渲染；并可扩展到掩码 + 局部提示的局部编辑控制。
+          现有 NeRF 在语义可控编辑中常出现跨视角不一致与背景扰动。SEER 将大模型语义先验蒸馏到可渲染的语义场中， 并通过条件调制将文本/语义控制仅作用于外观分支，同时用软掩码约束局部编辑区域，从而实现稳定的对象级可控神经渲染。
         </p>
       </div>
     </section>
+    
+    <!-- 图1：SEER 总体流程 -->
+    <section id="method" class="section">
+      <div class="container">
+        <h3 class="section-title">SEER框架总体流程</h3>
+        <p>
+          SEER的总体流程展示了如何将多视角图像与位置信息输入CLIP视觉编码器，并通过射线网络与语义特征结合，生成可渲染的语义场。此过程中的语义条件调制确保了外观的可控渲染。
+        </p>
+        <figure class="figure">
+          <div class="figure-content">
+            <img id="special-image" src="assets/fig1_overview.png" alt="SEER Overall Process"/>
+          </div>
+        </figure>
+      </div>
+    </section>
 
-    <!-- Method -->
+    <!-- METHOD Section -->
     <section id="method" class="section alt">
       <div class="container">
         <h2 class="section-title">Method</h2>
-        <p class="para">
-          训练目标由像素重建与语义约束共同组成：
-          <span class="math">
-            L = L<sub>rgb</sub> + λ<sub>g</sub>L<sub>sem</sub><sup>global</sup> + λ<sub>mv</sub>L<sub>mv</sub> (+ λ<sub>l</sub>L<sub>sem</sub><sup>local</sup>)
-          </span>
-        </p>
-
-        <figure class="figure">
-          <img src="assets/pipeline.png" alt="pipeline">
-          <figcaption>
-            Pipeline：输入多视角数据 → NeRF 渲染 → CLIP 语义约束 + 多视角一致性约束。
-          </figcaption>
-        </figure>
-
-        <div class="cards">
-          <div class="card">
-            <h3>Global Semantic</h3>
-            <p>渲染图与文本 prompt 做 cosine 对齐，增强整体语义一致性。</p>
-          </div>
-          <div class="card">
-            <h3>Multi-view Consistency</h3>
-            <p>同 batch 不同视角 embedding 一致，减少闪烁与漂移。</p>
-          </div>
-          <div class="card">
-            <h3>Local Editing</h3>
-            <p>掩码区域与局部 prompt 对齐，实现局部可控编辑。</p>
+    
+        <div class="two-col">
+          <div>
+            <p class="para">
+              SEER的核心由三部分组成：
+              <span class="pilltext">可渲染语义场蒸馏</span>
+              <span class="pilltext">语义条件调制</span>
+              <span class="pilltext">软掩码局部控制</span>。
+            </p>
+            <p class="para muted">
+              下方展示了模型的流程与每个步骤的详细工作原理。
+            </p>
           </div>
         </div>
+    
+        <!-- 图2：语义蒸馏闭环 -->
+        <h3 class="section-title">语义蒸馏闭环</h3>
+        <p>
+          语义蒸馏闭环的过程首先通过CLIP提取的语义特征与射线网络结合，实现一致的可渲染语义场。在这个过程中，语义信息对齐是确保高质量渲染的关键。
+        </p>
+        <figure class="figure">
+          <div class="figure-content">
+            <img src="assets/fig2_semantic_distill.png" alt="Semantic Distillation" />
+            <div class="figure-description">
+            </div>
+          </div>
+        </figure>
+    
+        <!-- 图3：语义条件调制 -->
+        <h3 class="section-title">语义条件调制</h3>
+        <p>
+          语义条件调制部分通过将条件信息注入到外观分支，实现对渲染外观的控制。此部分采用了FiLM模块，以确保外观特征的可控性，同时保持场景的几何结构不变。
+        </p>
+        <figure class="figure">
+          <div class="figure-content">
+            <img src="assets/fig3_modulation.png" alt="Semantic Condition Modulation" />
+            <div class="figure-description">
+            </div>
+          </div>
+        </figure>
+    
+        <!-- 图4：两阶段训练策略 -->
+        <h3 class="section-title">两阶段训练策略</h3>
+        <p>
+          为了提高训练稳定性，SEER采用了两阶段训练策略。第一阶段专注于几何结构和外观信息的学习，第二阶段则引入语义调制和局部控制，以确保渲染结果的准确性和可控性。
+        </p>
+        <figure class="figure figure-compact">
+          <div class="figure-content">
+            <img src="assets/fig4_schedule.png" alt="Two-Phase Training" />
+            <div class="figure-description">
+            </div>
+          </div>
+        </figure>
       </div>
     </section>
-
-    <!-- Results -->
+    
+    <!-- RESULTS Section -->
     <section id="results" class="section">
       <div class="container">
         <h2 class="section-title">Results</h2>
-
-        <!-- Tabs -->
-        <div class="tabs" role="tablist" aria-label="Results Tabs">
+    
+        <div class="tabs" role="tablist" aria-label="Results tabs">
           <button class="tab active" data-tab="qual" role="tab" aria-selected="true" type="button">Qualitative</button>
           <button class="tab" data-tab="quant" role="tab" aria-selected="false" type="button">Quantitative</button>
         </div>
-
-        <!-- Panels -->
+    
+        <!-- QUAL Section -->
         <div class="tab-panel active" id="tab-qual" role="tabpanel">
-          <p class="para muted">下面是结果展示区（先用占位图）。你只要替换图片文件即可。</p>
-          <div class="gallery">
-            <figure class="shot">
-              <img src="assets/result1.png" alt="result 1">
-              <figcaption>Baseline vs Ours（多视角一致性更稳定）</figcaption>
+          <div class="grid2">
+            <div style="margin-bottom: 30px;">
+            <figcaption>跨视角语义一致性对比（热图/激活）：SEER 减少语义漂移，视角变化更稳定。</figcaption>
+            <figure class="figure">
+              <img src="assets/fig4_2_heatmap.png" alt="Heatmap" />
             </figure>
-            <figure class="shot">
-              <img src="assets/result2.png" alt="result 2">
-              <figcaption>局部编辑示例（mask + prompt）</figcaption>
+            </div>
+
+            <div>
+            <figcaption>对象级可控渲染/编辑：目标区域改变明显，背景保持稳定（对比 baseline/LERF）。</figcaption>
+            <figure class="figure">
+              <img src="assets/fig4_3_editing.png" alt="Editing" />
             </figure>
+            </div>
           </div>
         </div>
-
+    
+        <!-- QUANT Section -->
         <div class="tab-panel" id="tab-quant" role="tabpanel">
-          <p class="para muted">把你的指标填到表格里即可（PSNR/SSIM/CLIPScore 等）。</p>
+          <!-- 对比方法能力概览 -->
+          <h3 class="sub-title">对比方法能力概览</h3>
           <div class="table-wrap">
             <table>
               <thead>
                 <tr>
-                  <th>Method</th>
-                  <th>PSNR ↑</th>
-                  <th>SSIM ↑</th>
-                  <th>CLIPScore ↑</th>
+                  <th>方法</th>
+                  <th>语义建模</th>
+                  <th>语义控制</th>
+                  <th>主要特点</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>NeRF (RGB)</td>
-                  <td>--</td><td>--</td><td>--</td>
+                  <td>NeRF</td>
+                  <td>否</td>
+                  <td>否</td>
+                  <td>基础辐射场</td>
                 </tr>
                 <tr>
-                  <td>+ Global Semantic</td>
-                  <td>--</td><td>--</td><td>--</td>
+                  <td>mip-NeRF / 360</td>
+                  <td>否</td>
+                  <td>否</td>
+                  <td>高质量、尺度鲁棒</td>
                 </tr>
                 <tr>
-                  <td>+ Multi-view (Ours)</td>
-                  <td>--</td><td>--</td><td>--</td>
+                  <td>Instant-NGP</td>
+                  <td>否</td>
+                  <td>否</td>
+                  <td>高效训练</td>
+                </tr>
+                <tr>
+                  <td>LERF</td>
+                  <td>是</td>
+                  <td>弱</td>
+                  <td>语义查询</td>
+                </tr>
+                <tr>
+                  <td><b>SEER</b></td>
+                  <td><b>是</b></td>
+                  <td><b>是</b></td>
+                  <td>语义可渲染与可控</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        
+          <!-- 实验评价指标及其含义 -->
+          <h3 class="sub-title">实验评价指标及其含义</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>指标</th>
+                  <th>含义说明</th>
+                  <th>趋势</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>PSNR</td>
+                  <td>渲染结果与真实图像的像素一致性</td>
+                  <td>越大越好</td>
+                </tr>
+                <tr>
+                  <td>SSIM</td>
+                  <td>渲染结构与真实结构的一致性</td>
+                  <td>越大越好</td>
+                </tr>
+                <tr>
+                  <td>Drift</td>
+                  <td>跨视角语义响应的变化幅度</td>
+                  <td>越小越好</td>
+                </tr>
+                <tr>
+                  <td>T-Align</td>
+                  <td>目标对象对文本指令的响应程度</td>
+                  <td>越大越好</td>
+                </tr>
+                <tr>
+                  <td>BG-Δ</td>
+                  <td>编辑后背景区域的变化程度</td>
+                  <td>越小越好</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        
+          <!-- 新增的表格：新视角合成定量结果 -->
+          <h3 class="sub-title">新视角合成定量结果</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>方法</th>
+                  <th>PSNR (Blen)</th>
+                  <th>SSIM (Blen)</th>
+                  <th>PSNR (LLFF)</th>
+                  <th>SSIM (LLFF)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>NeRF</td>
+                  <td>28.6</td>
+                  <td>0.905</td>
+                  <td>25.4</td>
+                  <td>0.807</td>
+                </tr>
+                <tr>
+                  <td>mip-NeRF</td>
+                  <td>29.2</td>
+                  <td>0.914</td>
+                  <td>25.8</td>
+                  <td>0.815</td>
+                </tr>
+                <tr>
+                  <td>Instant-NGP</td>
+                  <td>29.0</td>
+                  <td>0.912</td>
+                  <td>25.6</td>
+                  <td>0.812</td>
+                </tr>
+                <tr>
+                  <td><b>SEER</b></td>
+                  <td><b>29.9</b></td>
+                  <td><b>0.925</b></td>
+                  <td><b>26.0</b></td>
+                  <td><b>0.820</b></td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-
-      </div>
     </section>
-
-    <!-- Usage -->
-    <section id="usage" class="section alt">
-      <div class="container">
-        <h2 class="section-title">Usage</h2>
-        <pre class="codeblock"><code># Install
-conda env create -f environment.yml
-conda activate seer
-
-# Train
-bash scripts/train.sh configs/clip_sem_global_mv.yaml
-
-# Evaluate
-bash scripts/eval.sh configs/clip_sem_global_mv.yaml</code></pre>
-      </div>
-    </section>
-
-    <!-- Citation -->
-    <section id="citation" class="section">
-      <div class="container">
-        <h2 class="section-title">BibTeX</h2>
-        <pre class="codeblock"><code>@misc{seer_2026,
-  title   = {SEER: 基于大模型语义先验的可控神经渲染},
-  author  = {Yanwen Qiu and others},
-  year    = {2026},
-  note    = {Course Project}
-}</code></pre>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div class="container footer-inner">
-        <span>© 2026 SEER</span>
-        <a href="#top" class="backtop">Back to top ↑</a>
-      </div>
-    </footer>
   </main>
 </body>
 </html>
